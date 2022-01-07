@@ -5,7 +5,7 @@ This is a Golang project and includes :
 
 - HTTP server
 - Dashboard of content management system "CMS"
-- Service to captupe usage analytics
+- Service to capture usage analytics
 - User Authentication service to authenticate requests 
 - Data RESTFul API 
 - Real-time chat and notication services for visitor help 
