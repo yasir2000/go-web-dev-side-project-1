@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	username, password := "akarama1932", "Ytds2012"
+	username, password := "akarama1932", "querty123"
 
 	//username, password := os.Getenv("GMAIL_USERNAME"), "qwerty123"
 
