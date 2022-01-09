@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"text/template"
 	"yasir2000/go-web-dev-side-project-1/cms/users"
@@ -43,16 +44,40 @@ func restrictedHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(user))
 }
 
-func main() {
+// oauthRestrictedHandler func is an http handler which will check the user's Token
+func oauthRestrictedHandler(w http.ResponseWriter, r *http.Request) {
+	user, err := users.VerifyToken(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+	w.Write([]byte(user))
+}
 
-	username, password := "akarama1933", "querty123"
+// Shows how to capture a string if any SQL injection or JS
+func sanitizeInputExample(str string) {
+	fmt.Println("JS:", template.JSEscapeString(str))
+	fmt.Println("HTML:", template.HTMLEscapeString(str))
+}
+
+func main() {
+	sanitizeInputExample("<script>alert(\"Hi!\");</sciprt>")
+
+	username, password := "akarama1937", "querty123"
 
 	//username, password := os.Getenv("GMAIL_USERNAME"), "qwerty123"
+
+	// err := users.NewUser(username, password)
+	// if err != nil {
+	// 	fmt.Printf("Couldn't create user: %s\n", err.Error())
+	// 	return
+	// }
 
 	err := users.NewUser(username, password)
 	if err != nil {
 		fmt.Printf("Couldn't create user: %s\n", err.Error())
-		return
+	} else {
+		fmt.Printf("Successfully created and authenticated user \033[32m%s\033[0m\n", username)
 	}
 
 	// err = users.AuthenticateUser(username, password)
@@ -62,7 +87,7 @@ func main() {
 	// }
 
 	//	fmt.Println("Successfuly created and authenticated user %s", username)
-	fmt.Printf("Succesfully created and authenticated user \033[32m%s\033[0m\n", username)
+	//fmt.Printf("Succesfully created and authenticated user \033[32m%s\033[0m\n", username)
 
 	// Send reset email
 	// err = users.SendPasswordResetEmail(username)
@@ -71,7 +96,13 @@ func main() {
 	// }
 
 	//http.HandleFunc("/reset", users.ResetPassword)
+
 	http.HandleFunc("/", authHandler)
+	http.HandleFunc("/auth/gplus/authorize", users.AuthURLHandler)
+	http.HandleFunc("/auth/gplus/callback", users.CallbackURLHandler)
+	http.HandleFunc("/oauth", oauthRestrictedHandler)
 	http.HandleFunc("/restricted", restrictedHandler)
-	http.ListenAndServe(":3000", nil)
+
+	// http.ListenAndServe(":3000", nil)
+	log.Fatal(http.ListenAndServeTLS(":3000", "server.pem", "server.key", nil))
 }
