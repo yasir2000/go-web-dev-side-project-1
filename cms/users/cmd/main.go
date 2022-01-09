@@ -63,7 +63,7 @@ func sanitizeInputExample(str string) {
 func main() {
 	sanitizeInputExample("<script>alert(\"Hi!\");</sciprt>")
 
-	username, password := "akarama1937", "querty123"
+	username, password := "akarama1939", "querty123"
 
 	//username, password := os.Getenv("GMAIL_USERNAME"), "qwerty123"
 

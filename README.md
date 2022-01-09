@@ -18,6 +18,9 @@ This is a Golang project and includes :
   - Username and Password login encryption using bcrypt (scrypt) package
   - Saving Sessions and Cookies using bot package (gorilla sessions) into DB
   - OAuth, JWT Token authentication using jwt-go, oauth2 (sessionless or passwordless authentication)
+  - Use Google OAuth2 API to authenticate then create valid token
+  - Use of sanitizers functions to capture SQL Injection or JS Scripts 
+  - Use TLS over HTTP to certify HTTPS requests by checking locally generated server key but without server certificate over the browser
 - Data RESTFul API 
 - Real-time chat and notification services for visitor help 
 - CI/CD automated deployment service
