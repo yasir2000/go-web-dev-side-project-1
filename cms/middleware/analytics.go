@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"golang.org/x/net/context"
 )
 
 var (
@@ -83,4 +85,24 @@ func Time(logger *log.Logger, next http.HandlerFunc) http.Handler {
 		//fmt.Println(elapsed)
 		logger.Println(elapsed)
 	})
+}
+
+type Values struct {
+	m map[string]string
+}
+
+func (v Values) Get(key string) string {
+	return v.m[key]
+}
+
+// PassContext is used to pass values between middleware.
+type PassContext func(ctx context.Context, w http.ResponseWriter, r *http.Request)
+
+// ServeHTTP satisfies the http.Handler interface.
+func (fn PassContext) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	v := Values{map[string]string{
+		"foo": "bar",
+	}}
+	ctx := context.WithValue(context.Background(), "vals", v)
+	fn(ctx, w, r)
 }
