@@ -10,6 +10,7 @@ This is a Golang project and includes :
   - Variadic functions
   - Function chaining
   - Callbacks
+  - Context package and Context trees
 - Logger and defer-panic-recover middlewares 
 - Dashboard of content management system "CMS"
 - Service to capture usage analytics
