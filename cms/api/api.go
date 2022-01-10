@@ -7,6 +7,8 @@ import (
 	cms "yasir2000/go-web-dev-side-project-1/cms"
 )
 
+var pool = New()
+
 // Doc lists all routes in this API
 func Doc(w http.ResponseWriter, r *http.Request) {
 	data := (map[string]string{
@@ -65,13 +67,19 @@ func writeJSON(w http.ResponseWriter, data interface{}) {
 	// turns data into byte[] of json
 	//resJSON, err := json.MarshalIndent(data, "", "\t")
 
-	// The below line will stream data into JSON stream to response writer
-	err := json.NewEncoder(w).Encode(data)
+	// The below line will stream data into JSON stream to byte buffer then
+	// to response writer
+	//var b bytes.Buffer
+	buf := pool.Get()
+	defer pool.Put(buf)
+	//err := json.NewEncoder(&b).Encode(data)
+	err := json.NewEncoder(buf).Encode(data)
 	if err != nil {
 		errJSON(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	//w.Write(resJSON)
+	buf.WriteTo(w)
 }
 
 // Create JSON error manually

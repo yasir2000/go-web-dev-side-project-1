@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-var temlPath = os.Getenv("GOPATH") + "src/yasir2000/go-web-dev-side-project-1/cms")
+var temlPath = os.Getenv("GOPATH") + "\\src\\github.com\\yasir2000\\go-web-dev-side-project-1\\cms\\templates\\*"
 
 //Tmpl is an exported variable outside package refrence to all templates
 //var Tmpl = template.Must(template.ParseGlob("../templates/*"))

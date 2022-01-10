@@ -23,6 +23,10 @@ This is a Golang project and includes :
   - Use TLS over HTTP to certify HTTPS requests by checking locally generated server key but without server certificate over the browser
 - Data RESTFul API 
   - JSON marhsalling, unmarshalling and streaming
+  - Encoding and decoding JSON
   - Formatting JSON responses
+  - Streaming JSON buffers, buffer pools and error handling 
+  - Image handeling; uploading, displaying images using buffers 
+  - Security concerns for image handeling 
 - Real-time chat and notification services for visitor help 
 - CI/CD automated deployment service

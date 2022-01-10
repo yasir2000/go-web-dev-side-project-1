@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"text/template"
 	"yasir2000/go-web-dev-side-project-1/cms/users"
@@ -63,7 +62,7 @@ func sanitizeInputExample(str string) {
 func main() {
 	sanitizeInputExample("<script>alert(\"Hi!\");</sciprt>")
 
-	username, password := "akarama1939", "querty123"
+	username, password := "akarama1940", "querty123"
 
 	//username, password := os.Getenv("GMAIL_USERNAME"), "qwerty123"
 
@@ -103,6 +102,6 @@ func main() {
 	http.HandleFunc("/oauth", oauthRestrictedHandler)
 	http.HandleFunc("/restricted", restrictedHandler)
 
-	// http.ListenAndServe(":3000", nil)
-	log.Fatal(http.ListenAndServeTLS(":3000", "server.pem", "server.key", nil))
+	http.ListenAndServe(":3000", nil)
+	//log.Fatal(http.ListenAndServeTLS(":3000", "server.pem", "server.key", nil))
 }
