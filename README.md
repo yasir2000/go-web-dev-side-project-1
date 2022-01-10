@@ -22,5 +22,7 @@ This is a Golang project and includes :
   - Use of sanitizers functions to capture SQL Injection or JS Scripts 
   - Use TLS over HTTP to certify HTTPS requests by checking locally generated server key but without server certificate over the browser
 - Data RESTFul API 
+  - JSON marhsalling, unmarshalling and streaming
+  - Formatting JSON responses
 - Real-time chat and notification services for visitor help 
 - CI/CD automated deployment service
