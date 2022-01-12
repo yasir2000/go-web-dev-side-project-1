@@ -16,6 +16,9 @@ func main() {
 	http.HandleFunc("/page/", api.GetPage)
 	http.HandleFunc("/upload", api.UploadImage)
 
-	http.ListenAndServe(":3000", nil)
-
+	if os.Getenv("env") == "dev" {
+		http.ListenAndServe(":3000", nil)
+	} else {
+		http.ListenAndServe(":80", nil)
+	}
 }

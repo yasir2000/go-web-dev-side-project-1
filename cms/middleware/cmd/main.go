@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"yasir2000/go-web-dev-side-project-1/cms/middleware"
 
 	"golang.org/x/net/context"
@@ -52,5 +53,10 @@ func main() {
 	http.Handle("/panic", middleware.Recover(panicker))
 	http.Handle("/context", middleware.PassContext(withContext))
 	//http.Handle("/panic", middleware.Time(logger, hello))
-	http.ListenAndServe(":3000", nil)
+	if os.Getenv("env") == "dev" {
+		http.ListenAndServe(":3000", nil)
+	} else {
+		http.ListenAndServe(":80", nil)
+	}
+
 }

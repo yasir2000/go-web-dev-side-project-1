@@ -30,3 +30,4 @@ This is a Golang project and includes :
   - Security concerns for image handeling 
 - Real-time chat and notification services for visitor help 
 - CI/CD automated deployment service
+  - Bare metal and Platform deployment types

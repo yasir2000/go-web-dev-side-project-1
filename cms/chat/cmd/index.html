@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Chat</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link href="https://npmcdn.com/basscss@8.0.0/css/basscss.min.css" rel="stylesheet">
+    <style>
+      html, body { font-family: "Proxima Nova", Helvetica, Arial, sans-serif }
+      .bg-blue { background-color: #07c }
+      .white { color: #fff }
+      .bold { font-weight: bold }
+    </style>
+  </head>
+
+  <body class="p2">
+    <h1 class="h1">Welcome to the chat room!</h1>
+    <form id="form" class="flex">
+      <input class="flex-auto px2 py1 bg-white border rounded" type="text" id="msg">
+      <input class="px2 py1 bg-blue white bold border rounded" type="submit" value="Send">
+    </form>
+    <div class="my2" id="box"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script>
+  $(function() {
+
+    var ws = new window.WebSocket("ws://localhost:3000/ws");
+        $msg = $("#msg");
+        $box = $("#box");
+
+    ws.onclose = function(e) {
+      $box.append("<p class='bold'>Connection closed!</p>");
+    }
+    ws.onmessage = function(e) {
+      $box.append("<p>"+e.data+"</p>");
+    }
+
+    $("#form").submit(function(e) {
+      e.preventDefault();
+      if (!ws) {
+          return;
+      }
+      if (!$msg.val()) {
+          return;
+      }
+      ws.send($msg.val());
+      $msg.val("");
+    });
+
+    document.addEventListener("visibilitychange", resetUnreadCount);
+
+    function increaseUnreadCount() {
+      if (document.hidden === true) {
+        var count = parseInt(document.title.match(/\d+/));
+        if (!count) {
+          document.title = "(1) Chat";
+          return;
+        }
+        document.title = "("+(count+1)+") Chat";
+      }
+    }
+
+    function resetUnreadCount() {
+      if (document.hidden === false) {
+        document.title = "Chat";
+      }
+    }
+
+    });
+  </script>
+  </body>
+</html>

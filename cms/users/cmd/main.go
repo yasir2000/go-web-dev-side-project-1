@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"text/template"
 	"yasir2000/go-web-dev-side-project-1/cms/users"
 )
@@ -102,6 +103,11 @@ func main() {
 	http.HandleFunc("/oauth", oauthRestrictedHandler)
 	http.HandleFunc("/restricted", restrictedHandler)
 
-	http.ListenAndServe(":3000", nil)
+	if os.Getenv("env") == "dev" {
+		http.ListenAndServe(":3000", nil)
+	} else {
+		http.ListenAndServe(":80", nil)
+	}
+
 	//log.Fatal(http.ListenAndServeTLS(":3000", "server.pem", "server.key", nil))
 }
