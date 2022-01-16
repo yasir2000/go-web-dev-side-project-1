@@ -46,7 +46,6 @@ func HandleNew(w http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
 
 		if contentType == "page" {
-
 			p := &Page{
 				Title:   title,
 				Content: content,
